@@ -64,7 +64,7 @@
                 }//遍历找到所有空白格子
                 if (b.length == 0)
                     return;
-                else {
+                else {//创建新的格子
                     var random = Math.floor(Math.random() * b.length)
                     this.grid_cell[b[random].row][b[random].col] = Math.random() > 0.97 ? 4 : 2;
                     var s = document.getElementsByClassName("grid-cell");
@@ -92,9 +92,11 @@
                 var moveY = (toi - start_i) * 119;
                 var moveX = (toj - start_j) * 119;
                 cellOne.style.cssText += `top:${moveY}px;
-                left:${moveX}px;`
+                left:${moveX}px;`//移动过渡效果
                 setTimeout(() => {
+                    //判断目标位置有不有方块
                     if (document.getElementById("map" + toi + "-" + toj)) {
+                        //有则原数翻倍
                         var cellTwo = document.getElementById("map" + toi + "-" + toj);
                         cellTwo.style.cssText += `
                         background:${color[this.grid_cell[toi][toj]]};`
@@ -102,7 +104,7 @@
                         this.score += this.grid_cell[toi][toj];
                         document.getElementById("score").innerText = this.score;
                     }
-                    else {
+                    else {//没有则新建一个方块
                         var s = document.getElementsByClassName("grid-cell");
                         var cellTwo = document.createElement("div");
                         cellTwo.id = "map" + toi + "-" + toj;
@@ -122,7 +124,7 @@
                         cellTwo.innerText = this.grid_cell[toi][toj];
                         s[toi * 4 + toj].appendChild(cellTwo);
                     }
-                    cellOne.parentNode.removeChild(cellOne);
+                    cellOne.parentNode.removeChild(cellOne);//移除被移动的方块
                 }, this.duration);
 
             },
@@ -192,7 +194,21 @@
                 }
             }
         }
-        document.onkeydown = function gameControl(event) {
+        //函数节流
+        function throttle(func, wait) {
+            let previous = 0;
+            return function () {
+                let now = Date.now();
+                let context = this;
+                let args = arguments;
+                if (now - previous > wait) {
+                    func.apply(context, args);
+                    previous = now;
+                }
+            }
+        }
+        document.onkeydown = throttle((event) => {
+            //直接用箭头函数写明游戏控制
             var em, em1, l, move = 0;
             if (event.keyCode == "87" || event.keyCode == "38") {//上
                 for (let i = 0; i < 4; i++) {
@@ -378,8 +394,8 @@
                     }, grid.duration);
                 }
             }
+        }, grid.duration*2)
 
-        }
     </script>
     <style>
         html,
