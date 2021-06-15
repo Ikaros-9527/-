@@ -34,12 +34,14 @@
             grid.init();
         }
         var grid = {
+            best: 0,
             score: 0,
             duration: 200,//定义过渡动画时间
             grid_cell: a,
             init: function () {
                 this.score = 0;//初始化分数
                 document.getElementById("score").innerText = this.score;
+                document.getElementById("best").innerText = this.best;
                 for (let j = 0; j < 4; j++) {
                     for (let k = 0; k < 4; k++) {
                         if (this.grid_cell[j][k] != 0) {
@@ -102,7 +104,11 @@
                         background:${color[this.grid_cell[toi][toj]]};`
                         cellTwo.innerText = this.grid_cell[toi][toj];
                         this.score += this.grid_cell[toi][toj];
+                        if (this.score > this.best) {
+                            this.best = this.score;
+                        }
                         document.getElementById("score").innerText = this.score;
+                        document.getElementById("best").innerText = this.best;
                     }
                     else {//没有则新建一个方块
                         var s = document.getElementsByClassName("grid-cell");
@@ -211,6 +217,8 @@
             //直接用箭头函数写明游戏控制
             var em, em1, l, move = 0;
             if (event.keyCode == "87" || event.keyCode == "38") {//上
+                //阻止元素发生默认的行为,即页面不发生滚动
+                event.preventDefault();
                 for (let i = 0; i < 4; i++) {
                     for (let k = 0; k < 4; k++) {
                         em1 = 0;//判断有不有数
@@ -303,6 +311,8 @@
                 }
             }
             if (event.keyCode == "83" || event.keyCode == "40") {//下
+                //阻止元素发生默认的行为,即页面不发生滚动
+                event.preventDefault();
                 for (let i = 0; i < 4; i++) {
                     for (let k = 0; k < 4; k++) {
                         em1 = 0;//判断有不有数
@@ -403,7 +413,7 @@
             background-color: cornsilk;
             height: 100%;
             padding: 0;
-            margin: 0;
+            margin: 50px;
         }
 
         .container {
@@ -415,6 +425,7 @@
         }
 
         p {
+            margin: 0;
             font-size: 4em;
             color: rgb(75, 37, 39);
         }
@@ -423,6 +434,7 @@
             border: 4px solid burlywood;
             background-color: burlywood;
             border-radius: 10px;
+            margin: 20px 0px;
         }
 
         .grid-row {
@@ -442,7 +454,7 @@
 
         button {
             position: relative;
-            top: -50px;
+            top: 0px;
             border: 0;
             color: white;
             background-color: darkgoldenrod;
@@ -458,7 +470,9 @@
     <div class="container">
         <p>2048</p>
         <button onclick="newGame()">new game</button>
+        <br>
         分数：<span id="score"></span>
+        最佳：<span id="best"></span>
         <div class="game-container">
             <div class="grid-row">
                 <div class="grid-cell"></div>
