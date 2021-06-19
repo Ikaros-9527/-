@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <title>黑客帝国数字雨</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="maCanvas"></canvas>
+    <script>
+        const cvs = document.getElementById('maCanvas');
+
+        const width = window.screen.width;
+        const height = window.screen.height;
+
+        cvs.width = width;
+        cvs.height = height;
+
+        const ctx = cvs.getContext('2d');
+        
+        const fontSize = 20;
+        const rows = Math.ceil(height/fontSize);
+        const columns = Math.ceil(width/fontSize)
+
+        var lines = new Array(columns).fill(0);
+
+        setInterval(function () {
+            ctx.fillStyle = "rgba(0,0,0,0.05)";
+            ctx.fillRect(0,0,width,height);
+            for(let i = 0;i < columns; i++){
+                var s= (Math.random()*36 | 0).toString(36)[Math.random()>0.5?'toLocaleLowerCase':'toLocaleUpperCase']();
+                ctx.fillStyle = "#00ff00";
+                ctx.font = fontSize + "px 宋体";
+                ctx.fillText(s,i * fontSize,lines[i] * fontSize)
+                lines[i]++;
+
+                if(lines[i]>rows || Math.random()>0.99){
+                    lines[i]=0;
+                }
+            }
+        },30)
+    </script>
+</body>
+</html>
