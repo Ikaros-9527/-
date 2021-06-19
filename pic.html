@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <title>旋转太极图</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .wrap {
+            position: relative;
+            margin: 50px auto;
+            border-width: 1px 1px 200px 1px;
+            background-color: white;
+            border-color: black;
+            border-style: solid;
+            width: 400px;
+            height: 200px;
+            border-radius: 50%;
+            animation: rote 2s linear infinite;
+            /*动画属性*/
+        }
+
+        /* 伪元素不存在dom，不能选中和修改，提升性能 */
+        .wrap::before,
+        .wrap::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .wrap::before {
+            right: 0;
+            border: white 75px solid;
+            background-color: black;
+        }
+
+        .wrap::after {
+            left: 0;
+            background-color: white;
+            border: black 75px solid;
+        }
+
+        @keyframes rote {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /*定义动画*/
+    </style>
+</head>
+
+<body>
+        <div class="box">
+            <div class="wrap"></div>
+        </div>
+</body>
+
+</html>
