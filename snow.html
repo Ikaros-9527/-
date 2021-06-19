@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <title>雪花</title>
+    <script type="text/javascript">
+        var a = 0, b = 0, c = 0;//设置三个全局变量来改变颜色
+        var t = 0, g = 0, p = 0;//设置三个计数器来然颜色平缓改变
+        function getcolor() {
+            //var a = Math.floor(Math.random()*255);
+            //var b = Math.floor(Math.random()*255);
+            //var c = Math.floor(Math.random()*255);
+            //这是随机改变颜色，希望颜色随时间渐变
+            var rgba = "rgba(" + a + "," + b + "," + c + ",0.5)";
+            return rgba;
+        }
+        let cvs = new Array();
+        setInterval(() => {
+            var c = document.getElementById("maCanvas");
+            const width = window.screen.width;
+            const height = window.screen.height;
+
+            c.width = width;
+            c.height = height;
+            var ctx = c.getContext("2d");
+            for (let index = 0; index < cvs.length - 1; index++) {
+                ctx.strokeStyle = getcolor();
+                ctx.lineWidth = 3;
+                ctx.lineCap = "round";
+                ctx.moveTo(cvs[index][0], cvs[index][1]);
+                ctx.lineTo(cvs[index + 1][0], cvs[index + 1][1]);
+                ctx.stroke();
+            }
+            cvs.shift();
+        }, 30)
+        document.onmousemove = function route() {
+            var x = event.clientX + scrollX;
+            var y = event.clientY + scrollY;
+            //相对于页面显示部分顶部加上页面滚动的距离
+            cvs.push([x, y]);
+            if (cvs.length > 5) {
+                cvs.shift();
+            }
+            //     var div = document.createElement('div');
+            //     //var x = event.screenX;
+            //     //var y = event.screenY;
+            //     //相对于设备屏幕顶部，只有滚动到特定位置才能和鼠标重合
+            //     //var x = event.clientX;
+            //     //var y = event.clientY;
+            //     //相对于页面显示部分顶部，当页面滚动后与鼠标位置不一致
+            //     div.className = "tale"
+            //     div.style.left = x + "px";
+            //     div.style.top = y + "px";
+            //     div.style.backgroundColor = getcolor();
+            //     document.body.appendChild(div);
+            //     setTimeout(function(){
+            //     var del = document.getElementsByClassName('tale')
+            //     div.addEventListener("animationend",document.body.removeChild(del[0]));
+            // },200//我不会用animationend，总是达不到预期的效果，这里删掉也没影响
+            // )
+        }
+        // 直接使用Js绘图，由于浏览器限制，只能绘制断断续续的小圆点
+
+        function snow() {
+            //    1、定义一片雪花模板
+            var flake = document.createElement('div');
+            // 雪花字符 ❄❉❅❆✻✼❇❈❊✥✺
+            flake.innerHTML = '❆';
+            //使用fixed属性最好,界面不会受影响，absolute和relative不建议
+            flake.style.cssText = 'position:fixed;color:#fff;';
+
+            //获取页面的高度 相当于雪花下落结束时Y轴的位置
+            var documentHieght = window.innerHeight;
+            //获取页面的宽度，利用这个数来算出，雪花开始时left的值
+            var documentWidth = window.innerWidth;
+
+            //定义生成一片雪花的毫秒数
+            var millisec = 20;
+            //2、设置第一个定时器，周期性定时器，每隔一段时间（millisec）生成一片雪花；
+            setInterval(function () { //页面加载之后，定时器就开始工作
+                //随机生成雪花下落 开始 时left的值，相当于开始时X轴的位置
+                var startLeft = Math.random() * documentWidth;
+
+                //随机生成雪花下落 结束 时left的值，相当于结束时X轴的位置
+                var endLeft = Math.random() * documentWidth;
+
+                //随机生成雪花大小
+                var flakeSize = 5 + 20 * Math.random();
+
+                //随机生成雪花下落持续时间
+                var durationTime = 4000 + 7000 * Math.random();
+
+                //随机生成雪花下落 开始 时的透明度
+                var startOpacity = 0.7 + 0.3 * Math.random();
+
+                //随机生成雪花下落 结束 时的透明度
+                var endOpacity = 0.2 + 0.2 * Math.random();
+
+                //克隆一个雪花模板
+                var cloneFlake = flake.cloneNode(true);
+
+                //第一次修改样式，定义克隆出来的雪花的样式
+                cloneFlake.style.cssText += `
+                    top:-25px;
+                    left: ${startLeft}px;
+                    opacity: ${startOpacity};
+                    font-size:${flakeSize}px;
+                    transition:${durationTime}ms;
+                  `;
+
+                //拼接到页面中
+                document.body.appendChild(cloneFlake);
+
+                //设置第二个定时器，一次性定时器，
+                //当第一个定时器生成雪花，并在页面上渲染出来后，修改雪花的样式，让雪花动起来；
+                setTimeout(function () {
+                    //第二次修改样式
+                    cloneFlake.style.cssText += `
+                            left: ${endLeft}px;
+                            top:${documentHieght}px;
+                            opacity:${endOpacity};
+                        `;
+
+                    //4、设置第三个定时器，当雪花落下后，删除雪花。
+                    setTimeout(function () {
+                        cloneFlake.remove();
+                    }, durationTime);
+                }, 0);
+
+                if (t == 1) { if (a >= 250) { t = 0, a -= 5 } else a += 5; }
+                else { if (a <= 5) { t = 1, a += 5 } else a -= 5; }
+                if (g == 1) { if (b >= 250) { g = 0, b -= 4 } else b += 4; }
+                else { if (b <= 5) { g = 1, b += 4 } else b -= 4; }
+                if (p == 1) { if (c >= 250) { p = 0, c -= 3 } else c += 3; }
+                else { if (c <= 5) { p = 1, c += 3 } else c -= 3; }
+            }, millisec);
+        }
+    </script>
+    <style>
+        body {
+            overflow-x: hidden;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+
+        div {
+            /* fixed属性不会影响界面，
+            而absolute和relative当超过界面外时会显示滚动条
+             */
+            position: fixed;
+            height: 5px;
+            width: 5px;
+            opacity: 0;
+            border-radius: 50%;
+            animation: route .5s linear;
+        }
+
+        @keyframes route {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        canvas {
+            position: fixed;
+        }
+
+        * {
+            user-select: none;
+        }
+
+        /* 设为不可选中 */
+    </style>
+</head>
+
+<body onload="snow();">
+    <img src="./images/clouds-2517653.jpg" alt="city">
+    <canvas id="maCanvas"></canvas>
+</body>
+
+</html>
