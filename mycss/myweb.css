@@ -47,7 +47,17 @@ div.box {
     border: 4px solid #303030;
     width: 1024px;
     background-color: #202020;
+    color: #ffffff;
     margin: 0 auto;
+}
+
+div.box>img{
+    position: relative;
+    width: 100%;
+    display: block;
+    /*img是内联元素，要使其居中，就需要先转换为块元素*/
+    margin: auto;
+
 }
 
 nav {
@@ -198,7 +208,7 @@ mark.mark {
 }
 
 mark.mark:hover {
-    color: aqua;
+    color: red;
 }
 
 .container p {
