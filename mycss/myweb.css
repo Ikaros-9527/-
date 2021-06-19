@@ -1,0 +1,283 @@
+body {
+    background: #606061;
+    padding: 0px;
+    margin: 0px;
+    /* 隐藏多余部分 
+    overflow: hidden;*/
+}
+
+/* sticky属性仅在以下几个条件都满足时有效：
+1.父元素不能overflow:hidden或者overflow:auto属性，或者body height:100%
+2.必须指定top、bottom、left、right4个值之一，否则只会处于相对定位
+3.父元素的高度不能低于sticky元素的高度 */
+
+header, nav, footer {
+    user-select: none;
+}
+
+header {
+    height: 180px;
+    padding: 0px;
+    margin: 0px;
+    background-color: #292929;
+    padding: 30px 0px 0PX 30px;
+}
+
+header a {
+    margin-top: 22px;
+    margin-left: 10px;
+    background-color: #292929;
+    display: inline-block;
+    /* display:block一整列都可以点击 */
+    overflow: hidden;
+}
+
+body>div {
+    box-sizing: border-box;
+    /* 消除border和padding属性对布局的影响 */
+    width: 1024px;
+    background-color: #292929;
+    margin: 0 auto;
+}
+
+div.box {
+    overflow: hidden;
+    /*使浮动的子元素撑开自身*/
+    box-sizing: border-box;
+    border: 4px solid #303030;
+    width: 1024px;
+    background-color: #202020;
+    margin: 0 auto;
+}
+
+nav {
+    position: sticky;
+    /*粘性定位*/
+    top: 0;
+    box-sizing: border-box;
+    font-size: 1.2em;
+    height: 56px;
+    margin: 0px;
+    padding: 0px;
+    line-height: 56px;
+    background-color: #292929;
+    /* background:color #292929; */
+    color: rgb(255, 255, 255);
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom: 2px solid #414141;
+    z-index: 1;
+    /*确保粘性标签在页面向下滚动时始终在其余元素之上*/
+}
+
+nav a {
+    margin-right: -4px;
+    padding: 0 14px;
+    display: inline-block;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+nav>div{
+    display: inline-block;
+    color: #ffffff;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content a {
+    display: block;
+    color: #ffffff;
+    background-color: #292929;
+    /* 文字不换行，不知为何容器长度以最后一个元素为准
+    如果前面的元素比最后一个长就会换行 */
+    white-space: nowrap; 
+    text-decoration: none;
+}
+
+.dropdown-content {
+    position: absolute;
+    display: none;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover{
+    background-color: #303030;
+}
+
+video {
+    width: 100%;
+}
+
+.current {
+    background-color: #303030;
+}
+
+nav a:hover {
+    background-color: #303030;
+}
+
+nav form {
+    box-sizing: border-box;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #404041;
+    border-radius: 1px;
+    vertical-align: middle;
+    background-color: #212122;
+    margin: 8px;
+    float: right;
+}
+
+input {
+    font-size: 1.0em;
+    border: none;
+    box-sizing: border-box;
+    height: 38px;
+    line-height: 38px;
+    width: 160px;
+    padding: 0px 6px;
+    /* input默认背景色为白色 */
+    background-color: transparent;
+    outline: none;
+    /* 光标与文字颜色 */
+    color: white;
+}
+
+.search_submit {
+    float: right;
+    box-sizing: border-box;
+    width: 32px;
+    height: 38px;
+    background: url("../images/search.png") no-repeat 6px 9px;
+    border: none;
+    background-size: 20px 20px;
+    text-align: center;
+}
+
+div.container {
+    overflow: hidden;
+    border: 4px solid #303030;
+    background-color: #202020;
+    color: #ffffff;
+    padding: 0px;
+    margin: 2px;
+    font-size: 1.2em;
+    float: left;
+    width: 32%;
+}
+
+p {
+    margin-top: 0;
+    padding: 0 auto;
+}
+
+mark.subaru {
+    background-color: #202020;
+    color: aqua;
+}
+
+mark.beidi {
+    background-color: #202020;
+    color: pink;
+}
+
+.important {
+    color: red;
+    font-size: 1.8em;
+}
+
+mark.mark {
+    background-color: #ffffff;
+    color: #ffffff;
+}
+
+mark.mark:hover {
+    color: aqua;
+}
+
+.container p {
+    width: 100%;
+    height: 1.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*只有这三个属性都在时才能达到裁剪多余文字并以省略号替代的效果*/
+}
+
+.container a {
+    color: #ffffff;
+    text-decoration: none;
+    text-align: center;
+}
+
+.container img {
+    position: relative;
+    height: 180px;
+    display: block;
+    /*img是内联元素，要使其居中，就需要先转换为块元素*/
+    margin: auto;
+}
+
+pre {
+    overflow: hidden;
+    min-width: 400px;
+    max-width: 980px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    float: left;
+    border: 4px solid #303030;
+    border-radius: 20px;
+    background-color: #292929;
+    color: #ffffff;
+    font-size: 1.2em;
+    padding: 0px;
+    margin: 0px 0px 10px 10px;
+    line-height: 56px;
+}
+
+div.little_button {
+    position: fixed;
+    width: 150px;
+    bottom: 40px;
+    right: 10px;
+    padding: 6px 24px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #9d0f0f;
+    opacity: 0.2;
+    cursor: pointer;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 1024px;
+    background-color: #292929;
+    margin: 0 auto;
+    clear: both;
+    color: white;
+    font-size: 1.2em;
+    margin: 0px;
+    padding: 0 30px;
+    line-height: 56px;
+}
+
+div.buttom {
+    float: left;
+    width: 30%;
+}
+
+footer a {
+    line-height: 1.3em;
+    margin-right: -4px;
+    padding: 0 14px;
+    display: inline-block;
+    color: #ffffff;
+}
