@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《Web应用基础》课程结业报告</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h3 {
+            text-indent: 1.5em;
+        }
+
+        a {
+            color: white;
+        }
+
+        p {
+            text-indent: 2em;
+            line-height: 1.5em;
+        }
+
+        .box {
+            width: 80%;
+            margin: 20px auto;
+            color: white;
+            padding: 1em;
+            border-radius: 20px;
+            border: 4px dotted lightblue;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            animation: pic 50s steps(1) infinite;
+            /* steps函数，针对动画两个关键帧之间的过渡，如下面0%到20%，不是针对真个keyframe动画 */
+        }
+
+        @keyframes pic {
+            0% {
+                background: url(./images/pic/1.jpg) no-repeat fixed;
+                background-size: 100% auto;
+                /*宽 高*/
+            }
+
+            20% {
+                background: url(./images/pic/2.jpg) no-repeat fixed;
+                background-size: 100% auto;
+            }
+
+            40% {
+                background: url(./images/pic/3.jpg) no-repeat fixed;
+                background-size: 100% auto;
+            }
+
+            60% {
+                background: url(./images/pic/4.jpg) no-repeat fixed;
+                background-size: 100% auto;
+            }
+
+            80% {
+                background: url(./images/pic/5.jpg) no-repeat fixed;
+                background-size: 100% auto;
+            }
+
+            100% {}
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>《Web应用基础》课程结业报告</h1>
+        <h3>网站内容与开发过程</h3>
+        <p>这次课题我选择的是制作一个静态网站：网站的每一个页面都是一个单独的HTML文档，通过超链接进行页面间的跳转。
+            相对于动态网站，静态网站更易于制作，在主题明确且灵感充足的前提下，能够在更短的时间内完成。
+            然而，静态网站而后期维护会比动态网站复杂得多，每当需要修改某项数据或某元素样式时，都需要将所有相关的页面修改一次。
+        </p>
+        <p>由于我本人是一个二刺螈，所以最初设想网站内容的时候，便打算做一个与二次元相关的网站，网站的样式参考了我常用的看番网站——<a href="https://www.agefans.cc/"
+                target="_blank">AGE动漫</a>。
+            然而由于我才能有限且灵感不足，实在是写不出好的内容，网站首页仅仅展示了一些中国的古诗词，而页面二我准备介绍一些我喜欢的动漫，希望能让更多的人了解这些动漫的内容，若是被我的介绍打动而去亲自观看原片就再好不过了。
+        </p>
+        <p>虽然现在网站内容还很少，但是以后会逐渐添加内容。目前我将在学习过程中制作的一些简单且常见的特效也作为网站的页面上传，比如雪花飘落的特效和黑客的帝国字符雨的特效，这些比较基础，
+            就不再赘述。值得一说的是2048小游戏和鼠标移动小尾巴的特效，在制作的过程中遇到了许多问题，花费了我较多的时间才完成。
+        </p>
+        <h3>遇到的问题</h3>
+        <p>1.代码提示。我使用的是vs code编写，因为有代码补全提示所以常常记不住有哪些可以使用的函数方法。一次编写时我发现想用的方法没有弹出代码提示，最初我以为是我编写了错误的代码、或者该函数没有这样的用法，后来发现vs
+            code有时候并不会提示所有可用的方法，
+            而那些没有提示的方法依然可以使用。
+        </p>
+        <p>2.实现方式。同样的效果可以有多种不同的实现方式，选择适合的方式可以节省很多的时间成本和性能成本，选择了错误的方式会使编写的难度大幅提高，在编写鼠标移动小尾巴特效时我就选错了方式导致效果达不到预期。
+        </p>
+        <p>3.知识积累。有很多的效果想要实现，奈何没有相应的技术而做不出来。</p>
+        <h3>问题总结</h3>
+        <p>在绘制鼠标路径时，最初我使用了js DOM来实现，利用onmousemove来检测鼠标移动，每次移动就调用函数来添加一个“div”标签，在鼠标经过的位置画一个圆。然而通过这种方式绘制的鼠标路径，是一些不连续的断点，
+            这是因为onmousemove函数并不是每移动一个像素即调用一次，而是由于浏览器性能的限制所以会间隔一段时间才会调用一次，而且通过这种方式会创建出太多无用的“div”元素。后面改为使用HTML5中的“canvas”来实现，在两次调用onmousemove时鼠标所在坐标之间画一条线。
+            这种方式画出的路径看上去是连续的，然而每次画线时都会清除之前绘制的所有线条，只会绘制转瞬即逝的鼠标路径。于是我就想到利用一个数组来保存之前绘制的路径，在重绘时一并绘制出之前的路径，并在数组保存过多数据时利用shift方法来移除多余的数据，这样就实现了绘制鼠标路径的效果。
+        </p>
+        <p>在写2048小游戏时，利用了一个二维数组来保存数据，在玩家操纵时，会先改变二维数组中的数据，再根据二维数组绘制游戏界面，然而这样移动方块和生成新方块都在一瞬间完成，让人难以理解，期望中的效果是有一个移动和生成的过渡动画。经过思考，我使用了异步方法，先显示过渡动画，在利用定时器
+            来移除移动的方块和生成新的方块。然而这时游戏出现了一个问题：当玩家操作过快时，在定时器触发前会再次更新数据，导致出现程序错误，目前我使用了节流函数“throttle”来限制玩家的操作频率，不知道该如何更好地解决这一问题。
+        </p>
+    </div>
+</body>
+
+</html>
