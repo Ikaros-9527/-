@@ -89,5 +89,5 @@ CSS级联样式表可以为HTML文档添加背景、格式化文本、以及格�
     </body>
 </html>
 ```
-[点击查看效果](Ikaros-9527.github.io/exam2.html)
+[点击查看效果](https://ikaros-9527.github.io/exam.html)
 
