@@ -20,9 +20,6 @@
     <script>
         const cvs = document.getElementById('maCanvas');
 
-        const width = window.screen.width;
-        const height = window.screen.height;
-
         //能获取到缩放后正确的页面尺寸
         // const width = window.innerWidth;
         // const height = window.innerHeight;
@@ -39,6 +36,9 @@
         // const height = document.body.scrollHeight;
         // const width = document.body.clientWidth;
         // const height = document.body.clientHeight;
+        
+        cvs.width = width;
+        cvs.height = height;
 
         const ctx = cvs.getContext('2d');
         
