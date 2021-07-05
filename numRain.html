@@ -23,8 +23,22 @@
         const width = window.screen.width;
         const height = window.screen.height;
 
-        cvs.width = width;
-        cvs.height = height;
+        //能获取到缩放后正确的页面尺寸
+        // const width = window.innerWidth;
+        // const height = window.innerHeight;
+        //在声明<!DOCTYPE html>时能获取到缩放后正确的页面尺寸
+        // const width = document.documentElement.scrollWidth;
+        // const height = document.documentElement.scrollHeight;
+        const width = document.documentElement.clientWidth;
+        const height = document.documentElement.clientHeight;
+        //获取到显示器的尺寸，在经过缩放后的值
+        // const width = window.screen.width;
+        // const height = window.screen.height;
+        //在声明<!DOCTYPE html>时会获取到一个错误的值
+        // const width = document.body.scrollWidth;
+        // const height = document.body.scrollHeight;
+        // const width = document.body.clientWidth;
+        // const height = document.body.clientHeight;
 
         const ctx = cvs.getContext('2d');
         
